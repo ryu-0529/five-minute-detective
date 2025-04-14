@@ -44,15 +44,12 @@ const Header: React.FC = () => {
         {/* ロゴとタイトル */}
         <Link href="/" className="flex items-center space-x-2 group">
           <div className="relative w-8 h-8 overflow-hidden">
-            <Image
-              src="/images/logo.svg"
-              alt="5分探偵 ロゴ"
-              fill
-              sizes="32px"
-              style={{ objectFit: 'contain' }}
-              priority={true}
-              className="transform transition-transform group-hover:scale-110"
-            />
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform transition-transform group-hover:scale-110">
+              <circle cx="16" cy="16" r="16" fill="#1E3A8A"/>
+              <path d="M16 8C13.8 8 12 9.8 12 12C12 14.2 13.8 16 16 16C18.2 16 20 14.2 20 12C20 9.8 18.2 8 16 8Z" fill="#38BDF8"/>
+              <path d="M22 21.6C22 19.6 20.4 18 18.4 18H13.6C11.6 18 10 19.6 10 21.6V24H22V21.6Z" fill="#38BDF8"/>
+              <path d="M13 12L15 15L19 11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
           <div className="flex flex-col">
             <span className="font-detective font-bold text-base text-detective-light group-hover:text-detective-secondary transition-colors">

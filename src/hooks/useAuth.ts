@@ -188,8 +188,10 @@ const useAuth = (): AuthContextType => {
     error,
     login,
     signup,
+    loginWithGoogle,
     logout,
-    resetPassword
+    resetPassword,
+    updateUserProfile
   };
 };
 
