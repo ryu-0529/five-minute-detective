@@ -64,7 +64,7 @@ const Home: NextPage = () => {
             </motion.p>
             
             <motion.div 
-              className="mt-8"
+              className="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.5 }}
@@ -73,14 +73,14 @@ const Home: NextPage = () => {
                 nextEpisode ? (
                   <Link 
                     href={`/episodes/${nextEpisode.id}`}
-                    className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors mr-4"
+                    className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors text-center"
                   >
                     次のエピソードを開始
                   </Link>
                 ) : (
                   <Link 
                     href="/episodes"
-                    className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors mr-4"
+                    className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors text-center"
                   >
                     エピソード一覧を見る
                   </Link>
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
               ) : (
                 <Link 
                   href="/login"
-                  className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors mr-4"
+                  className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors text-center"
                 >
                   ログインして始める
                 </Link>
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
               
               <Link 
                 href="/about"
-                className="bg-transparent hover:bg-white/10 text-white border border-white font-bold py-3 px-6 rounded-lg transition-colors"
+                className="bg-transparent hover:bg-white/10 text-white border border-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
               >
                 ゲームについて
               </Link>
@@ -262,26 +262,65 @@ const Home: NextPage = () => {
             </motion.p>
             
             <motion.div
+              className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
             >
               {player ? (
-                <Link 
-                  href="/episodes"
-                  className="bg-white hover:bg-gray-100 text-detective-primary font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
-                >
-                  今すぐ謎を解く
-                </Link>
+                <>
+                  <Link 
+                    href="/episodes"
+                    className="bg-white hover:bg-gray-100 text-detective-primary font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
+                  >
+                    今すぐ謎を解く
+                  </Link>
+                  <Link 
+                    href="/science-notes"
+                    className="bg-transparent hover:bg-white/10 text-white border border-white font-bold py-3 px-8 rounded-lg transition-colors"
+                  >
+                    科学ノートを見る
+                  </Link>
+                </>
               ) : (
-                <Link 
-                  href="/register"
-                  className="bg-white hover:bg-gray-100 text-detective-primary font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
-                >
-                  今すぐ無料登録
-                </Link>
+                <>
+                  <Link 
+                    href="/register"
+                    className="bg-white hover:bg-gray-100 text-detective-primary font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
+                  >
+                    今すぐ無料登録
+                  </Link>
+                  <Link 
+                    href="/login"
+                    className="bg-transparent hover:bg-white/10 text-white border border-white font-bold py-3 px-8 rounded-lg transition-colors"
+                  >
+                    ログイン
+                  </Link>
+                </>
               )}
+            </motion.div>
+            
+            {/* iOSでのインストール方法ガイド */}
+            <motion.div
+              className="mt-12 max-w-md mx-auto bg-white/10 backdrop-blur-sm p-4 rounded-lg text-left"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-detective text-lg font-bold mb-2">
+                iOSでホーム画面に追加
+              </h3>
+              <ol className="text-sm space-y-2 list-decimal list-inside">
+                <li>Safariで開く</li>
+                <li>共有ボタン<span className="inline-block mx-1">
+                  <svg className="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                </span>をタップ</li>
+                <li>「ホーム画面に追加」を選択</li>
+              </ol>
             </motion.div>
           </div>
         </section>

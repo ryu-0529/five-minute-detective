@@ -7,6 +7,25 @@
   "background_color": "#F8FAFC",
   "theme_color": "#1E3A8A",
   "orientation": "portrait",
+  "id": "five-minute-detective",
+  "scope": "/",
+  "categories": ["games", "education", "entertainment"],
+  "screenshots": [
+    {
+      "src": "/screenshots/screen1.png",
+      "sizes": "1125x2436",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "ホーム画面"
+    },
+    {
+      "src": "/screenshots/screen2.png",
+      "sizes": "1125x2436",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "エピソード画面"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -36,7 +55,8 @@
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icons/icon-384x384.png",
@@ -46,8 +66,27 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "apple-touch-icon"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "エピソード一覧",
+      "url": "/episodes",
+      "description": "ミステリーエピソード一覧を表示"
+    },
+    {
+      "name": "科学ノート",
+      "url": "/science-notes",
+      "description": "収集した科学知識を表示"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

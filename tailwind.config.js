@@ -19,6 +19,9 @@ module.exports = {
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      fontSize: {
+        '2xs': '0.625rem', // 10px
       }
     },
   },
