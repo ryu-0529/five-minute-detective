@@ -9,6 +9,22 @@ import Layout from '../components/layout/Layout';
 import OfflineDetector from '../components/utility/OfflineDetector';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  // Service Workerの登録
+  useEffect(() => {
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(
+          registration => {
+            console.log('Service Worker registered: ', registration);
+          },
+          error => {
+            console.log('Service Worker registration failed: ', error);
+          }
+        );
+      });
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -20,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         
         <title>5分探偵：知恵の糸</title>
       </Head>
