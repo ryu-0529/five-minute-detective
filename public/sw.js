@@ -1,8 +1,9 @@
 // Service Worker for the 5-Minute Detective App
-
-const CACHE_NAME = 'five-minute-detective-v1';
-const STATIC_CACHE_NAME = 'five-minute-detective-static-v1';
-const DYNAMIC_CACHE_NAME = 'five-minute-detective-dynamic-v1';
+// キャッシュのバージョン（更新時に変更）
+const CACHE_VERSION = 3; // バージョンを変更してキャッシュを更新
+const CACHE_NAME = `five-minute-detective-v${CACHE_VERSION}`;
+const STATIC_CACHE_NAME = `five-minute-detective-static-v${CACHE_VERSION}`;
+const DYNAMIC_CACHE_NAME = `five-minute-detective-dynamic-v${CACHE_VERSION}`;
 const OFFLINE_PAGE = '/offline.html';
 
 // キャッシュするべき静的アセット
@@ -27,11 +28,22 @@ const staticAssets = [
   '/evidence',
   '/login',
   '/register',
-  '/about'
+  '/about',
+  '/profile'
+];
+
+// オフラインでも利用できるようにするAPIパス
+const apiCachePaths = [
+  '/api/episodes',
+  '/api/science-concepts'
 ];
 
 // バックグラウンド同期のためのキュー
 let bgSyncQueue = [];
+
+// 応答済みリクエストを追跡するキャッシュ
+// 非同期リスナーがメッセージチャネルが閉じられる前に応答できるようにする
+const RESPONDED_REQUESTS = new Set();
 
 // インストール時にキャッシュを設定
 self.addEventListener('install', (event) => {
@@ -123,6 +135,26 @@ const networkFirstStrategy = async (request) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
+  // 非同期メッセージチャネルの問題に対処
+  // リクエストに一意のIDを割り当て、応答済みかチェック
+  const requestId = `${url.pathname}-${Date.now()}-${Math.random()}`;
+  if (event.request.url.includes('firebase') && !RESPONDED_REQUESTS.has(requestId)) {
+    // 非同期メッセージを送る可能性があるリクエストは事前処理
+    try {
+      // 即座に応答するハンドラーを登録
+      self.clients.matchAll().then(clients => {
+        if (clients.length > 0) {
+          clients[0].postMessage({
+            type: 'REQUEST_ID',
+            id: requestId
+          });
+        }
+      });
+    } catch (error) {
+      console.error('[Service Worker] Error in pre-fetch handling:', error);
+    }
+  }
+  
   // 静的アセットへのリクエストかどうかをチェック
   const isStaticAsset = staticAssets.some(asset => 
     url.pathname === asset || 
@@ -138,19 +170,23 @@ self.addEventListener('fetch', (event) => {
   const isApiRequest = url.pathname.startsWith('/api/') || 
                        url.pathname.includes('firebase') || 
                        url.origin !== location.origin;
+                       
+  // オフラインでもキャッシュからロードできるAPIかどうか
+  const isCacheableApi = apiCachePaths.some(path => url.pathname.includes(path));
   
   // POST/PUT/DELETEリクエストの場合はバックグラウンド同期を試みる
   if (event.request.method !== 'GET') {
     if (navigator.onLine) {
-      event.respondWith(fetch(event.request));
+      // 即座に応答してメッセージチャネルが閉じるのを防ぐ
+      event.respondWith(Promise.resolve(fetch(event.request)));
     } else {
       // オフライン時はキューに追加
-      event.respondWith(new Response(JSON.stringify({ 
+      event.respondWith(Promise.resolve(new Response(JSON.stringify({ 
         offline: true, 
         message: 'This operation has been queued for background sync' 
       }), {
         headers: { 'Content-Type': 'application/json' }
-      }));
+      })));
       
       bgSyncQueue.push(event.request.clone());
     }
@@ -159,12 +195,23 @@ self.addEventListener('fetch', (event) => {
   
   // 適切なキャッシュ戦略を適用
   if (isStaticAsset) {
-    event.respondWith(cacheFirstStrategy(event.request));
+    // 静的アセットはキャッシュファースト
+    event.respondWith(Promise.resolve(cacheFirstStrategy(event.request)));
   } else if (isApiRequest) {
-    event.respondWith(networkFirstStrategy(event.request));
+    if (isCacheableApi) {
+      // キャッシュ可能なAPIリクエストはネットワークファースト（オフラインでも動作）
+      event.respondWith(Promise.resolve(networkFirstStrategy(event.request)));
+    } else if (url.pathname.includes('firebase') && navigator.onLine) {
+      // Firebase認証関連のリクエストはオンライン時のみ処理
+      // Chromeの拡張機能関連のAPI向けに即座に応答
+      event.respondWith(Promise.resolve(fetch(event.request)));
+    } else {
+      // その他のAPIリクエスト
+      event.respondWith(Promise.resolve(networkFirstStrategy(event.request)));
+    }
   } else {
     // その他のリクエスト (動的HTML等)
-    event.respondWith(networkFirstStrategy(event.request));
+    event.respondWith(Promise.resolve(networkFirstStrategy(event.request)));
   }
 });
 
@@ -273,4 +320,29 @@ self.addEventListener('notificationclick', (event) => {
         }
       })
   );
+});
+
+// メッセージ受信時の処理 - 特に SKIP_WAITING メッセージの処理
+self.addEventListener('message', (event) => {
+  console.log('[Service Worker] Message received:', event.data);
+  
+  // メッセージのタイプをチェック
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    // Service Workerを即座にアクティベート
+    self.skipWaiting();
+    console.log('[Service Worker] skipWaiting() called');
+    
+    // メッセージチャネルが閉じる前に応答するため、即座に応答
+    if (event.ports && event.ports[0]) {
+      event.ports[0].postMessage({ success: true });
+    }
+  } else if (event.data && event.data.type === 'REQUEST_ID' && event.data.id) {
+    // リクエストIDを記録して、応答済みとしてマーク
+    RESPONDED_REQUESTS.add(event.data.id);
+    
+    // 即座に応答
+    if (event.ports && event.ports[0]) {
+      event.ports[0].postMessage({ success: true, id: event.data.id });
+    }
+  }
 });

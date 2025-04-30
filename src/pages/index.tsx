@@ -33,8 +33,8 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>5分探偵：知恵の糸 | ホーム</title>
-        <meta name="description" content="科学の力で謎を解く5分間のミステリーゲーム" />
+        <title>謎解き探偵：科学の眼（メ） | ホーム</title>
+        <meta name="description" content="科学の力で陰謀論に立ち向かうミステリーゲーム" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              5分探偵<span className="text-detective-secondary">：</span>知恵の糸
+              謎解き探偵<span className="text-detective-secondary">：</span>科学の眼（メ）
             </motion.h1>
             
             <motion.p 
@@ -59,8 +59,8 @@ const Home: NextPage = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              科学の知識で謎を解く、5分で完結するミステリーゲーム。
-              各エピソードの謎を解き明かし、隠された大きな陰謀を暴け！
+              科学的思考で陰謀論に立ち向かう、教育的ミステリーゲーム。
+              各エピソードを解決し、その裏に隠された大きな陰謀を暴け！
             </motion.p>
             
             <motion.div 
@@ -133,10 +133,10 @@ const Home: NextPage = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">5分で完結</h3>
+                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">陰謀論を科学で解明</h3>
                 <p className="text-gray-700 text-center">
-                  忙しい日常の合間にもプレイできる、手軽なミステリー体験。
-                  各エピソードは5分以内で解決可能です。
+                  現代社会に広まる様々な陰謀論を科学的思考で解明。
+                  批判的思考力と科学リテラシーが身につきます。
                 </p>
               </motion.div>
               
@@ -149,10 +149,10 @@ const Home: NextPage = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">科学で謎解き</h3>
+                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">探偵ゲームシステム</h3>
                 <p className="text-gray-700 text-center">
-                  物理、生物、数学など、科学の原理を応用した謎解き。
-                  遊びながら科学的思考が身につきます。
+                  4択質問、動機カード、信頼度システムなど、謎解きに没入できる多彩なゲームシステム。
+                  各キャラクターの裏ストーリーを予測する推理力が試されます。
                 </p>
               </motion.div>
               
@@ -165,10 +165,10 @@ const Home: NextPage = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">大きな陰謀</h3>
+                <h3 className="text-xl font-detective font-bold text-center text-detective-dark mb-2">AIパートナー「アイリス」</h3>
                 <p className="text-gray-700 text-center">
-                  一見バラバラに見える5つのエピソードは、実は大きな謎に繋がっています。
-                  全ての事件を解決して真実を暴き出そう。
+                  高性能AIパートナー「アイリス」があなたの探偵活動をサポート。
+                  データ分析や科学知識を提供し、最終的な真実へと導きます。
                 </p>
               </motion.div>
             </motion.div>
@@ -216,11 +216,11 @@ const Home: NextPage = () => {
                   <div className="w-full bg-gray-200 rounded-full h-4">
                     <div 
                       className="bg-detective-secondary h-4 rounded-full"
-                      style={{ width: `${Math.min(100, (progress?.completedEpisodes.length || 0 / 5) * 100)}%` }}
+                      style={{ width: `${Math.min(100, ((progress?.completedEpisodes.length || 0) / 6) * 100)}%` }}
                     ></div>
                   </div>
                   <p className="text-right text-sm text-gray-600 mt-1">
-                    {progress?.completedEpisodes.length || 0}/5 エピソード完了
+                    {progress?.completedEpisodes.length || 0}/6 エピソード完了
                   </p>
                 </div>
                 
@@ -247,7 +247,7 @@ const Home: NextPage = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              5分で1つの謎を解こう
+              科学の力で陰謀論に挑む
             </motion.h2>
             
             <motion.p 
@@ -257,8 +257,8 @@ const Home: NextPage = () => {
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              短時間で楽しめる謎解き体験が、あなたを待っています。
-              科学の知識を活かしながら、エニグマ財団の陰謀を暴きましょう。
+              「科学の眼（メ）」のメンバーとして、現代社会に広まる様々な陰謀論に科学的思考で立ち向かいましょう。
+              AIパートナー「アイリス」と共に謎を解き明かし、その裏に潜む「アトラスAI」の陰謀を暴きましょう。
             </motion.p>
             
             <motion.div

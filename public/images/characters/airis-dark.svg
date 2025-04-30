@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- 円形の背景 -->
+  <circle cx="100" cy="100" r="100" fill="#1a1a2e" />
+  
+  <!-- AIアイコン - サークルの形 -->
+  <circle cx="100" cy="85" r="55" fill="#16213e" opacity="0.85" />
+  
+  <!-- AIの顔 - 目と口 -->
+  <ellipse cx="70" cy="75" rx="8" ry="12" fill="#e94560" opacity="0.8" />
+  <ellipse cx="130" cy="75" rx="8" ry="12" fill="#e94560" opacity="0.8" />
+  <ellipse cx="70" cy="75" rx="4" ry="6" fill="#ffffff" />
+  <ellipse cx="130" cy="75" rx="4" ry="6" fill="#ffffff" />
+  
+  <!-- 口/スマイル - 少し不気味な感じに -->
+  <path d="M70,110 Q100,105 130,110" stroke="#e94560" stroke-width="4" fill="none" />
+  
+  <!-- 光る効果 - 頭上のリング（壊れている/不完全） -->
+  <path d="M85,30 A15,15 0 0,1 115,30" stroke="#533483" stroke-width="3" />
+  
+  <!-- テクノロジーライン - より複雑でややランダム -->
+  <path d="M30,150 L170,150" stroke="#0f3460" stroke-width="2" stroke-dasharray="7,2" />
+  <path d="M45,160 L155,160" stroke="#0f3460" stroke-width="2" stroke-dasharray="3,1" />
+  <path d="M60,170 L140,170" stroke="#0f3460" stroke-width="2" stroke-dasharray="5,2" />
+  
+  <!-- 小さな装飾的なドット - 赤色で強調 -->
+  <circle cx="35" cy="150" r="2" fill="#e94560" />
+  <circle cx="165" cy="150" r="2" fill="#e94560" />
+  <circle cx="50" cy="160" r="2" fill="#e94560" />
+  <circle cx="150" cy="160" r="2" fill="#e94560" />
+  <circle cx="65" cy="170" r="2" fill="#e94560" />
+  <circle cx="135" cy="170" r="2" fill="#e94560" />
+  
+  <!-- バイナリコード風の背景要素 -->
+  <text x="40" y="40" font-family="Courier, monospace" font-size="8" fill="#0f3460" opacity="0.5">10110</text>
+  <text x="140" y="45" font-family="Courier, monospace" font-size="8" fill="#0f3460" opacity="0.5">01001</text>
+  <text x="30" y="120" font-family="Courier, monospace" font-size="8" fill="#0f3460" opacity="0.5">11001</text>
+  <text x="150" y="130" font-family="Courier, monospace" font-size="8" fill="#0f3460" opacity="0.5">10010</text>
+  
+  <!-- テキスト -->
+  <text x="100" y="190" font-family="Arial, sans-serif" font-size="14" fill="#e94560" text-anchor="middle" font-weight="bold">AIRIS / ATLAS</text>
+</svg>

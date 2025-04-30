@@ -9,10 +9,10 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* アプリ情報 */}
           <div>
-            <h3 className="font-detective text-xl font-bold mb-4">5分探偵</h3>
+            <h3 className="font-detective text-xl font-bold mb-4">謎解き探偵：科学の眼（メ）</h3>
             <p className="text-gray-400 mb-4">
-              科学の力で謎を解く5分間のミステリーゲーム。
-              各エピソードの謎を解き明かし、隠された大きな陰謀を暴きましょう。
+              科学の力で陰謀論に立ち向かうミステリーゲーム。
+              各エピソードの謎を解き明かし、隠された真実を暴きましょう。
             </p>
             <div className="flex space-x-4">
               <a
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span>contact@5min-detective.example.com</span>
+                <span>contact@science-detective.example.com</span>
               </div>
               <div className="flex items-center">
                 <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                     d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
                   />
                 </svg>
-                <span>Twitter: @5minDetective</span>
+                <span>Twitter: @ScienceDetective</span>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
         {/* 区切り線 */}
         <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} 5分探偵：知恵の糸 All rights reserved.
+            &copy; {new Date().getFullYear()} 謎解き探偵：科学の眼（メ） All rights reserved.
           </p>
           <div className="flex space-x-4 text-sm text-gray-500">
             <Link href="/privacy" className="hover:text-white transition-colors">

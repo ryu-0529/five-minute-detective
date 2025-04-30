@@ -9,28 +9,83 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   User,
-  UserCredential
+  UserCredential,
+  onAuthStateChanged
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { AuthContextType } from '../types/auth';
+import { Player, GameProgress } from '../types/game';
 
 /**
  * 認証関連の機能を提供するカスタムフック
  */
 const useAuth = (): AuthContextType => {
   const [user, setUser] = useState<User | null>(null);
+  const [player, setPlayer] = useState<Player | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   // ユーザーの認証状態を監視
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      setLoading(true);
+      
       if (authUser) {
         // 認証ユーザーが存在する場合
         setUser(authUser);
+        
+        // プレイヤーデータをFirestoreから取得
+        try {
+          const playerDoc = await getDoc(doc(db, 'users', authUser.uid));
+          
+          if (playerDoc.exists()) {
+            // 既存ユーザーのデータ取得
+            const playerData = playerDoc.data() as Player;
+            setPlayer({
+              uid: authUser.uid,
+              displayName: playerData.displayName || authUser.displayName || 'Detective',
+              email: playerData.email || authUser.email || '',
+              photoURL: playerData.photoURL || authUser.photoURL || undefined,
+              level: playerData.level || 1,
+              score: playerData.score || 0,
+              progress: playerData.progress || {
+                completedEpisodes: [],
+                unlockedEpisodes: [1],
+                collectedEvidence: [],
+                scienceNotes: []
+              }
+            });
+          } else {
+            // 新規ユーザー用の初期データを作成
+            const newPlayer: Player = {
+              uid: authUser.uid,
+              displayName: authUser.displayName || 'Detective',
+              email: authUser.email || '',
+              photoURL: authUser.photoURL || undefined,
+              level: 1,
+              score: 0,
+              progress: {
+                completedEpisodes: [],
+                unlockedEpisodes: [1], // 最初は第1話のみアンロック
+                collectedEvidence: [],
+                scienceNotes: []
+              }
+            };
+            
+            // Firestoreに保存
+            await setDoc(doc(db, 'users', authUser.uid), newPlayer);
+            setPlayer(newPlayer);
+          }
+        } catch (err) {
+          console.error('プレイヤーデータの取得に失敗:', err);
+          setError('プレイヤーデータの取得に失敗しました');
+        }
       } else {
+        // 未ログイン状態
         setUser(null);
+        setPlayer(null);
       }
+      
       setLoading(false);
     });
 
@@ -181,9 +236,50 @@ const useAuth = (): AuthContextType => {
       setLoading(false);
     }
   };
+  
+  // プレイヤーの進行状況を更新
+  const updatePlayerProgress = async (progress: Partial<GameProgress>): Promise<void> => {
+    if (!user || !player) {
+      setError('ユーザーがログインしていません');
+      throw new Error('ユーザーがログインしていません');
+    }
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // 更新するプレイヤー情報
+      const updatedProgress = {
+        ...player.progress,
+        ...progress
+      };
+      
+      // 更新するプレイヤーオブジェクト
+      const updatedPlayer = {
+        ...player,
+        progress: updatedProgress
+      };
+      
+      // Firestoreに保存
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, {
+        progress: updatedProgress
+      });
+      
+      // ローカル状態を更新
+      setPlayer(updatedPlayer);
+    } catch (err) {
+      console.error('進行状況の更新に失敗:', err);
+      setError((err as Error).message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
     user,
+    player,
     loading,
     error,
     login,
@@ -191,7 +287,8 @@ const useAuth = (): AuthContextType => {
     loginWithGoogle,
     logout,
     resetPassword,
-    updateUserProfile
+    updateUserProfile,
+    updatePlayerProgress
   };
 };
 

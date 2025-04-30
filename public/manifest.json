@@ -1,13 +1,13 @@
 {
-  "name": "5分探偵：知恵の糸",
-  "short_name": "5分探偵",
-  "description": "科学の知識で謎を解く5分間のミステリーゲーム",
+  "name": "謎解き探偵：科学の眼（メ）",
+  "short_name": "科学の眼",
+  "description": "科学的思考で陰謀論に立ち向かうミステリーゲーム - 陰謀論ミステリー編",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F8FAFC",
-  "theme_color": "#1E3A8A",
+  "background_color": "#172554",
+  "theme_color": "#1E40AF",
   "orientation": "portrait",
-  "id": "five-minute-detective",
+  "id": "science-detective",
   "scope": "/",
   "categories": ["games", "education", "entertainment"],
   "screenshots": [
@@ -79,12 +79,26 @@
     {
       "name": "エピソード一覧",
       "url": "/episodes",
-      "description": "ミステリーエピソード一覧を表示"
+      "description": "ミステリーエピソード一覧を表示",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
       "name": "科学ノート",
       "url": "/science-notes",
-      "description": "収集した科学知識を表示"
+      "description": "収集した科学知識を表示",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "証拠品一覧",
+      "url": "/evidence",
+      "description": "収集した証拠品を表示",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "プロフィール",
+      "url": "/profile",
+      "description": "プレイヤー情報を表示",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],

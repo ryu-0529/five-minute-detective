@@ -54,8 +54,8 @@ const Episodes: NextPage = () => {
   return (
     <>
       <Head>
-        <title>5分探偵 | エピソード一覧</title>
-        <meta name="description" content="5分で解ける科学ミステリーエピソード一覧" />
+        <title>謎解き探偵：科学の眼（メ） | エピソード一覧</title>
+        <meta name="description" content="科学的思考で陰謀論に立ち向かうミステリーエピソード一覧" />
       </Head>
 
       <div className="min-h-screen bg-detective-light py-12">
@@ -75,8 +75,8 @@ const Episodes: NextPage = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              科学の知識を駆使して様々な謎を解き明かしましょう。
-              全てのエピソードをクリアして、エニグマ財団の陰謀を暴きましょう。
+              科学的思考を駆使して現代社会に広まる様々な陰謀論を解明しましょう。
+              全てのエピソードをクリアして、アトラスAIの真の目的を暴きましょう。
             </motion.p>
           </div>
 
@@ -175,11 +175,11 @@ const Episodes: NextPage = () => {
               transition={{ delay: 0.5, duration: 0.5 }}
             >
               <h2 className="font-detective text-2xl font-bold mb-4 text-detective-secondary">
-                進行中の調査: プロジェクトΩ
+                進行中の調査: アトラスAI計画
               </h2>
               <p className="mb-4">
                 これまでの調査で{progress.completedEpisodes.length}つの手がかりを入手しました。
-                {progress.completedEpisodes.length < 5 ? 'さらに調査を進めてエニグマ財団の秘密を解き明かしましょう。' : 'すべての手がかりが集まりました。最終調査に挑みましょう。'}
+                {progress.completedEpisodes.length < 5 ? 'さらに調査を進めて謎の人工知能アトラスの真実を解き明かしましょう。' : 'すべての手がかりが集まりました。最終調査に挑みましょう。'}
               </p>
               
               {/* 謎解きの進行状況 - 収集した手がかり */}
@@ -216,7 +216,7 @@ const Episodes: NextPage = () => {
                     onClick={() => router.push('/episodes/final')}
                     className="bg-detective-accent hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
                   >
-                    最終調査に挑む
+                    アトラスAIの真実に迫る
                   </button>
                 </div>
               )}

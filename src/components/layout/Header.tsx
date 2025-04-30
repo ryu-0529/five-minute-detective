@@ -12,6 +12,7 @@ const Header: React.FC = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
+  const [scienceMenuOpen, setScienceMenuOpen] = useState<boolean>(false);
 
   // スクロール検出
   useEffect(() => {
@@ -53,10 +54,10 @@ const Header: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-detective font-bold text-base text-detective-light group-hover:text-detective-secondary transition-colors">
-              5分探偵
+              謎解き探偵：科学の眼
             </span>
             <span className="text-2xs text-detective-secondary font-handwritten -mt-1">
-              知恵の糸
+              陰謀論ミステリー編
             </span>
           </div>
         </Link>
@@ -104,17 +105,7 @@ const Header: React.FC = () => {
               }`}></span>
             </Link>
             
-            <Link 
-              href="/evidence"
-              className={`text-detective-light hover:text-detective-secondary transition-colors relative group ${
-                router.pathname === '/evidence' ? 'text-detective-secondary font-semibold' : ''
-              }`}
-            >
-              証拠品
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-detective-secondary transition-all duration-300 ${
-                router.pathname === '/evidence' ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}></span>
-            </Link>
+
             
             <Link 
               href="/about"
@@ -214,20 +205,7 @@ const Header: React.FC = () => {
                   </div>
                 </Link>
                 
-                <Link
-                  href="/evidence"
-                  className={`block px-4 py-3 hover:bg-detective-primary transition-colors ${
-                    router.pathname === '/evidence' ? 'bg-detective-primary/50 text-detective-secondary' : 'text-detective-light'
-                  }`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <div className="flex items-center">
-                    <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                    </svg>
-                    証拠品
-                  </div>
-                </Link>
+
                 
                 <Link
                   href="/about"

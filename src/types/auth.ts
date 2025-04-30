@@ -4,6 +4,7 @@ import { Player } from './game';
 // 認証コンテキストの型定義
 export interface AuthContextType {
   user: User | null;
+  player: Player | null;
   loading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
@@ -12,6 +13,7 @@ export interface AuthContextType {
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateUserProfile: (displayName?: string, photoURL?: string) => Promise<void>;
+  updatePlayerProgress: (progress: Partial<GameProgress>) => Promise<void>;
 }
 
 // Firestoreとの連携関連の型定義
